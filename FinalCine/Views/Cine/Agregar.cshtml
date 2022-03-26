@@ -1,0 +1,32 @@
+﻿@model FinalCine.Models.Cine
+@{
+    ViewBag.Title = "Agregar";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Agregar</title>
+    <meta charset="utf-8" />
+</head>
+<body style="background-color:#9b9b9b;">
+    <h1>Agregar Pelicula</h1>
+
+    <table>
+        @using (Html.BeginForm())
+        {
+            <tr><td>Nombre Película</td><td>@Html.TextBoxFor(C=>C.pelicula.NombrePelicula)</td></tr>
+            <tr><td>Descripción</td><td>@Html.TextBoxFor(C=>C.pelicula.Descripcion)</td></tr>
+            <tr><td>Tipo de Película</td><td>@Html.DropDownListFor(C=>C.pelicula.IdTipo, new SelectList(Model.nombrePelicula, "idTipo", "nombreTipo"),"Seleccione")</td></tr>
+            <tr><td>Calificación</td><td>@Html.TextBoxFor(C=>C.pelicula.Calificacion)</td></tr>
+            <tr><td>Duración</td><td>@Html.TextBoxFor(C=>C.pelicula.Duracion)</td></tr>
+            <tr><td></td><td><input type="submit" value="Agregar" /></td></tr>
+        }
+    </table>
+
+    @Html.ActionLink("Volver", "Index");
+
+</body>
+</html>
+

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="cineModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Pelicula">
+    <Key>
+      <PropertyRef Name="idPelicula" />
+    </Key>
+    <Property Name="idPelicula" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombrePelicula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="idTipo" Type="Int32" />
+    <Property Name="calificacion" Type="Int32" />
+    <Property Name="duracion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TipoPelicula" Relationship="Self.FK_Pelicula_TipoPelicula" FromRole="Pelicula" ToRole="TipoPelicula" />
+  </EntityType>
+  <EntityType Name="TipoPelicula">
+    <Key>
+      <PropertyRef Name="idTipo" />
+    </Key>
+    <Property Name="idTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombreTipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Pelicula" Relationship="Self.FK_Pelicula_TipoPelicula" FromRole="TipoPelicula" ToRole="Pelicula" />
+  </EntityType>
+  <Association Name="FK_Pelicula_TipoPelicula">
+    <End Role="TipoPelicula" Type="Self.TipoPelicula" Multiplicity="0..1" />
+    <End Role="Pelicula" Type="Self.Pelicula" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoPelicula">
+        <PropertyRef Name="idTipo" />
+      </Principal>
+      <Dependent Role="Pelicula">
+        <PropertyRef Name="idTipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="cineEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Pelicula" EntityType="Self.Pelicula" />
+    <EntitySet Name="TipoPelicula" EntityType="Self.TipoPelicula" />
+    <AssociationSet Name="FK_Pelicula_TipoPelicula" Association="Self.FK_Pelicula_TipoPelicula">
+      <End Role="TipoPelicula" EntitySet="TipoPelicula" />
+      <End Role="Pelicula" EntitySet="Pelicula" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

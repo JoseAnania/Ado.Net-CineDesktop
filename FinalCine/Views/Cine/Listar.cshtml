@@ -1,0 +1,31 @@
+﻿@using FinalCine.Models
+@{
+    ViewBag.Title = "Listar";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Listar</title>
+    <meta charset="utf-8" />
+</head>
+<body style="background-color:#9b9b9b;">
+    <h1>Listar Peliculas</h1>
+
+    <table border="1">
+        
+        <tr><th>ID</th><th>Nombre</th><th>Descripción</th><th>Tipo</th><th>Calificación</th><th>Duración</th></tr>
+
+        @foreach (PeliculaDto P in Model)
+        {
+            <tr><td>@P.IdPelicula</td><td>@P.NombrePelicula</td><td>@P.Descripcion</td><td>@P.NombreTipo</td><td>@P.Calificacion</td><td>@P.Duracion</td></tr>
+
+        }
+    </table>
+
+    @Html.ActionLink("Volver", "Index");
+
+</body>
+</html>
+

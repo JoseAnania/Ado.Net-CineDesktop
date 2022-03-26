@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="cineModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Pelicula">
+    <Key>
+      <PropertyRef Name="idPelicula" />
+    </Key>
+    <Property Name="idPelicula" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombrePelicula" Type="varchar" MaxLength="50" />
+    <Property Name="descripcion" Type="varchar" MaxLength="50" />
+    <Property Name="idTipo" Type="int" />
+    <Property Name="calificacion" Type="int" />
+    <Property Name="duracion" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="TipoPelicula">
+    <Key>
+      <PropertyRef Name="idTipo" />
+    </Key>
+    <Property Name="idTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombreTipo" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Pelicula_TipoPelicula">
+    <End Role="TipoPelicula" Type="Self.TipoPelicula" Multiplicity="0..1" />
+    <End Role="Pelicula" Type="Self.Pelicula" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoPelicula">
+        <PropertyRef Name="idTipo" />
+      </Principal>
+      <Dependent Role="Pelicula">
+        <PropertyRef Name="idTipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="cineModelStoreContainer">
+    <EntitySet Name="Pelicula" EntityType="Self.Pelicula" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TipoPelicula" EntityType="Self.TipoPelicula" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Pelicula_TipoPelicula" Association="Self.FK_Pelicula_TipoPelicula">
+      <End Role="TipoPelicula" EntitySet="TipoPelicula" />
+      <End Role="Pelicula" EntitySet="Pelicula" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
